@@ -10,11 +10,11 @@ def call(Map pipelineParams) {
         }
 
         stages{
-            stage('Clean Workspace') {
-                steps {
-                    cleanWs()
-                }
-            }
+            // stage('Clean Workspace') {
+            //     steps {
+            //         cleanWs()
+            //     }
+            // }
 
             stage('Checkout from git') {
                 steps{
