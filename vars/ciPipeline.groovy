@@ -2,6 +2,10 @@ def call(Map pipelineParams) {
     pipeline{
         agent any
 
+        environment {
+        SCANNER_HOME = tool "${pipelineParams.sonarTool}"
+        }
+
         parameters {
             booleanParam(name: 'SKIP_SONAR', defaultValue: true, description: 'Skip SonarQube analysis ?')
             booleanParam(name: 'SKIP_OWASP_FS_SCAN', defaultValue: true, description: 'Skip OWASP FS Scan ?')
@@ -29,7 +33,7 @@ def call(Map pipelineParams) {
                             echo "SonarQube test skip is $SKIP_SONAR"
                         } 
                         else {
-                            withSonarQubeEnv('sonar-server') {
+                            withSonarQubeEnv("${pipelineParams.sonarTool}") {
                                 sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=${pipelineParams.sonarProjectName} \
                                 -Dsonar.projectKey=${pipelineParams.sonarProjectkey}'''
                             }
@@ -71,7 +75,7 @@ def call(Map pipelineParams) {
 
             stage('Docker build image') {
                 steps {
-                    sh "docker build --build-arg API_KEY=2af0904de8242d48e8527eeedc3e19d9 -t ${pipelineParams.imageName}:${pipelineParams.imageTag} ."
+                    sh "docker build --build-arg ${pipelineParams.buildArg} -t ${pipelineParams.imageName}:${pipelineParams.imageTag} ."
                 }
             }
 
