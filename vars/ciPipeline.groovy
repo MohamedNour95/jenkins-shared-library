@@ -98,7 +98,7 @@ def call(Map pipelineParams) {
             stage('Docker push image') {
                 steps{
                     script {
-                        withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker'){   
+                        withDockerRegistry(credentialsId: "${pipelineParams.dockerCred}", toolName: "${pipelineParams.dockerTool}"){   
                         sh "docker push ${pipelineParams.imageName}:${pipelineParams.imageTag}"
                         }
                     }
