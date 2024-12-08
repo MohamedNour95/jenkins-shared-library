@@ -33,7 +33,7 @@ def call(Map pipelineParams) {
                             echo "SonarQube test skip is $SKIP_SONAR"
                         } 
                         else {
-                            withSonarQubeEnv("${pipelineParams.sonarTool}") {
+                            withSonarQubeEnv("${pipelineParams.sonarServer}") {
                                 sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=${pipelineParams.sonarProjectName} \
                                 -Dsonar.projectKey=${pipelineParams.sonarProjectkey}'''
                             }
