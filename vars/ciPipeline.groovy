@@ -49,7 +49,7 @@ def call(Map pipelineParams) {
                             echo "SonarQube test skip is $SKIP_OWASP_FS_SCAN"
                         } 
                         else {
-                            dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'OWASP DP-Check'
+                            dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: "${pipelineParams.owaspInstallation}"
                             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                         }
                     }
