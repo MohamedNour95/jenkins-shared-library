@@ -34,8 +34,8 @@ def call(Map pipelineParams) {
                         } 
                         else {
                             withSonarQubeEnv("${pipelineParams.sonarServer}") {
-                                sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=${pipelineParams.sonarProjectName} \
-                                -Dsonar.projectKey=${pipelineParams.sonarProjectkey}'''
+                                sh """$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=${pipelineParams.sonarProjectName} \
+                                -Dsonar.projectKey=${pipelineParams.sonarProjectkey}"""
                             }
                         }
                     }
